@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="TadoXamarinApp.MainPage">
+
+    <StackLayout>
+        <!-- Place new controls here -->
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="30" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="30" />
+                <ColumnDefinition Width="30" />
+            </Grid.ColumnDefinitions>
+            <Label Text="Temperature (Celsius)" HorizontalTextAlignment="Center" Margin="0,30,0,0" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" />
+            <Slider Maximum="25" Minimum="5" Value="{Binding SelectedTemperature}" Grid.Row="1" Grid.Column="1" />
+            <Label Text="{Binding SelectedTemperature}" Grid.Row="1" Grid.Column="2" />
+            <Label Text="Time (Seconds)" HorizontalTextAlignment="Center" Margin="0,10,0,0" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" />
+            <Slider Maximum="7200" Minimum="0" Value="{Binding SelectedOverridePeriod}" Grid.Row="3" Grid.Column="1" />
+            <Label Text="{Binding SelectedOverridePeriod}" Grid.Row="3" Grid.Column="2" />
+            <Button Text="Living Room" Command="{Binding Zone1TestCommand}" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" />
+            <Button Text="Set All Zones" Command="{Binding AllOffCommand}"  Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" />
+            <Button Text="Cancel All Overrides" Command="{Binding CancelAllOffCommand}" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" />
+        </Grid>
+    </StackLayout>
+
+</ContentPage>
