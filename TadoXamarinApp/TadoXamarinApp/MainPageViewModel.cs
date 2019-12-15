@@ -20,6 +20,8 @@ namespace TadoXamarinApp
             Zone1CancelCommand = new Command(CancelOverride);
             AllOffCommand = new Command(AllOff);
             CancelAllOffCommand = new Command(CancelAllOverides);
+
+         
         }
 
         public ICommand TestClickCommand { get; }
