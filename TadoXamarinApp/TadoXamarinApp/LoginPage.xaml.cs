@@ -12,15 +12,14 @@ namespace TadoXamarinApp
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class LoginPage : ContentPage
     {
+        private LoginPageViewModel _viewModel;
+
         public LoginPage()
         {
+            void ExitPage() => Navigation.PopAsync();
+            _viewModel = new LoginPageViewModel(ExitPage);
+            BindingContext = _viewModel;
             InitializeComponent();
-        }
-
-        protected override void OnAppearing()
-        {
-            base.OnAppearing();
-            Navigation.PopAsync();
         }
     }
 }
