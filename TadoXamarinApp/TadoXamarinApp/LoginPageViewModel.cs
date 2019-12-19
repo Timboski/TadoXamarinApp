@@ -8,15 +8,21 @@ namespace TadoXamarinApp
     public class LoginPageViewModel : INotifyPropertyChanged
     {
         private readonly Action _exitPage;
+        private readonly TadoController _model;
         private readonly Command _loginCommand;
         private string _username;
         private string _password;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public LoginPageViewModel(Action exitPage)
+        public LoginPageViewModel(Action exitPage, TadoController model)
         {
             _exitPage = exitPage;
+
+            _model = model;
+            Username = model.Username;
+            Password = model.Password;
+
             _loginCommand = new Command(LoginButtonClick, IsLoginSupplied);
         }
 
@@ -50,7 +56,8 @@ namespace TadoXamarinApp
 
         private async void LoginButtonClick()
         {
-            // TODO: Call model to log in.
+            _model.Username = Username;
+            _model.Password = Password;
 
             _exitPage?.Invoke();
         }

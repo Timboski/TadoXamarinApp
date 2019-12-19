@@ -15,7 +15,7 @@ namespace TadoXamarinApp
             BindingContext = _viewModel;
             InitializeComponent();
 
-            Navigation.PushAsync(new LoginPage());
+            Navigation.PushAsync(new LoginPage(_viewModel.Model));
         }
     }
 }

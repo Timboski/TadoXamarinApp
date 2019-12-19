@@ -9,14 +9,14 @@ namespace TadoXamarinApp
     public class TadoController
     {
         private readonly HttpClient _httpClient = new HttpClient();
-        private readonly string _username;
-        private readonly string _password;
 
-        public TadoController(string username, string password)
+        public TadoController()
         {
-            _username = username;
-            _password = password;
         }
+
+        public string Username { get; set; }
+
+        public string Password { get; set; }
 
         public async Task SetOverlayTemperature(Info info, int tempInCelcius, int numberOfSeconds, int zone)
         {
@@ -70,7 +70,7 @@ namespace TadoXamarinApp
 
         private async Task GetToken()
         {
-            var requestUri = $"https://auth.tado.com/oauth/token?client_id=tado-web-app&grant_type=password&scope=home.user&username={_username}&password={_password}&client_secret=wZaRN7rpjn3FoNyF5IFuxg9uMzYJcvOoQ8QWiIqS3hfk6gLhVlG57j5YNoZL2Rtc";
+            var requestUri = $"https://auth.tado.com/oauth/token?client_id=tado-web-app&grant_type=password&scope=home.user&username={Username}&password={Password}&client_secret=wZaRN7rpjn3FoNyF5IFuxg9uMzYJcvOoQ8QWiIqS3hfk6gLhVlG57j5YNoZL2Rtc";
             var response = await _httpClient.PostAsync(requestUri, null);
             string token = await ReadAccessToken(response);
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);

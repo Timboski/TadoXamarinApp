@@ -14,10 +14,10 @@ namespace TadoXamarinApp
     {
         private LoginPageViewModel _viewModel;
 
-        public LoginPage()
+        public LoginPage(TadoController model)
         {
             void ExitPage() => Navigation.PopAsync();
-            _viewModel = new LoginPageViewModel(ExitPage);
+            _viewModel = new LoginPageViewModel(ExitPage, model);
             BindingContext = _viewModel;
             InitializeComponent();
         }

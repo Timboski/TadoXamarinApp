@@ -9,7 +9,6 @@ namespace TadoXamarinApp
         private int _numClicks = 0;
         private int _selectedTemperatureInCelcius = 5;
         private int _selectedOverrideTimeInSeconds = 3600;
-        private TadoController _tado = new TadoController("USERNAME", "PASSWORD");
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -20,8 +19,8 @@ namespace TadoXamarinApp
             Zone1CancelCommand = new Command(CancelOverride);
             AllOffCommand = new Command(AllOff);
             CancelAllOffCommand = new Command(CancelAllOverides);
-
-         
+            
+            Model = new TadoController();
         }
 
         public ICommand TestClickCommand { get; }
@@ -30,6 +29,8 @@ namespace TadoXamarinApp
         public ICommand AllOffCommand { get; }
         public ICommand CancelAllOffCommand { get; }
 
+        public TadoController Model { get; }
+
         private void TestButtonClick()
         {
             ++NumClicks;
@@ -37,26 +38,26 @@ namespace TadoXamarinApp
 
         private async void SetOverride()
         {
-            var info = await _tado.ReadInfo();
-            await _tado.SetOverlayTemperature(info, _selectedTemperatureInCelcius, _selectedOverrideTimeInSeconds, 1);
+            var info = await Model.ReadInfo();
+            await Model.SetOverlayTemperature(info, _selectedTemperatureInCelcius, _selectedOverrideTimeInSeconds, 1);
         }
 
         private async void CancelOverride()
         {
-            var info = await _tado.ReadInfo();
-            await _tado.CancelOverlayTemperature(info, 1);
+            var info = await Model.ReadInfo();
+            await Model.CancelOverlayTemperature(info, 1);
         }
 
         private async void AllOff()
         {
-            var info = await _tado.ReadInfo();
-            for (int z = 1; z <= 13; ++z) await _tado.SetOverlayTemperature(info, _selectedTemperatureInCelcius, _selectedOverrideTimeInSeconds, z);
+            var info = await Model.ReadInfo();
+            for (int z = 1; z <= 13; ++z) await Model.SetOverlayTemperature(info, _selectedTemperatureInCelcius, _selectedOverrideTimeInSeconds, z);
         }
 
         private async void CancelAllOverides()
         {
-            var info = await _tado.ReadInfo();
-            for (int z = 1; z <= 13; ++z) await _tado.CancelOverlayTemperature(info, z);
+            var info = await Model.ReadInfo();
+            for (int z = 1; z <= 13; ++z) await Model.CancelOverlayTemperature(info, z);
         }
 
         public int NumClicks
