@@ -7,7 +7,8 @@ namespace TadoXamarinApp
 {
     public class LoginPageViewModel : INotifyPropertyChanged
     {
-        private Action _exitPage;
+        private readonly Action _exitPage;
+        private readonly Command _loginCommand;
         private string _username;
         private string _password;
 
@@ -16,10 +17,10 @@ namespace TadoXamarinApp
         public LoginPageViewModel(Action exitPage)
         {
             _exitPage = exitPage;
-            LoginCommand = new Command(LoginButtonClick);
+            _loginCommand = new Command(LoginButtonClick, IsLoginSupplied);
         }
 
-        public ICommand LoginCommand { get; }
+        public ICommand LoginCommand => _loginCommand;
 
         public string Username
         {
@@ -30,6 +31,7 @@ namespace TadoXamarinApp
                 if (_username == value) return;
                 _username = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Username)));
+                _loginCommand.ChangeCanExecute();
             }
         }
 
@@ -42,6 +44,7 @@ namespace TadoXamarinApp
                 if (_password == value) return;
                 _password = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Password)));
+                _loginCommand.ChangeCanExecute();
             }
         }
 
@@ -50,6 +53,13 @@ namespace TadoXamarinApp
             // TODO: Call model to log in.
 
             _exitPage?.Invoke();
+        }
+
+        private bool IsLoginSupplied()
+        {
+            if (string.IsNullOrEmpty(Username)) return false;
+            if (string.IsNullOrEmpty(Password)) return false;
+            return true;
         }
     }
 }
