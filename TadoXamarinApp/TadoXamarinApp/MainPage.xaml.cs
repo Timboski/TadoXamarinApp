@@ -14,8 +14,21 @@ namespace TadoXamarinApp
         {
             BindingContext = _viewModel;
             InitializeComponent();
+        }
 
-            Navigation.PushAsync(new LoginPage(_viewModel.Model));
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+            if (IsLoggedIn()) return;
+            await _viewModel.Model.Initialise();
+            await Navigation.PushAsync(new LoginPage(_viewModel.Model));
+        }
+
+        private bool IsLoggedIn()
+        {
+            if (string.IsNullOrEmpty(_viewModel.Model.Username)) return false;
+            if (string.IsNullOrEmpty(_viewModel.Model.Password)) return false;
+            return true;
         }
     }
 }

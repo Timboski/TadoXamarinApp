@@ -12,7 +12,7 @@ namespace TadoXamarinApp
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class LoginPage : ContentPage
     {
-        private LoginPageViewModel _viewModel;
+        private readonly LoginPageViewModel _viewModel;
 
         public LoginPage(TadoController model)
         {

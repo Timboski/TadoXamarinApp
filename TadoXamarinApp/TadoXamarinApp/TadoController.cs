@@ -1,8 +1,10 @@
 ﻿using Polly;
+using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 
 namespace TadoXamarinApp
 {
@@ -14,9 +16,38 @@ namespace TadoXamarinApp
         {
         }
 
-        public string Username { get; set; }
+        public string Username { get; private set; }
 
-        public string Password { get; set; }
+        public string Password { get; private set; }
+
+        public async Task Initialise()
+        {
+            try
+            {
+                Username = await SecureStorage.GetAsync("username");
+                Password = await SecureStorage.GetAsync("password");
+            }
+            catch (Exception ex)
+            {
+                // Possible that device doesn't support secure storage on device.
+            }
+        }
+
+        public async Task Initialise(string username, string password)
+        {
+            Username = username;
+            Password = password;
+
+            try
+            {
+                await SecureStorage.SetAsync("username", username);
+                await SecureStorage.SetAsync("password", password);
+            }
+            catch (Exception ex)
+            {
+                // Possible that device doesn't support secure storage on device.
+            }
+        }
 
         public async Task SetOverlayTemperature(Info info, int tempInCelcius, int numberOfSeconds, int zone)
         {

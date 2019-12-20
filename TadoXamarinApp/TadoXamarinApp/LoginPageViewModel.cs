@@ -37,7 +37,7 @@ namespace TadoXamarinApp
                 if (_username == value) return;
                 _username = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Username)));
-                _loginCommand.ChangeCanExecute();
+                _loginCommand?.ChangeCanExecute();
             }
         }
 
@@ -50,14 +50,13 @@ namespace TadoXamarinApp
                 if (_password == value) return;
                 _password = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Password)));
-                _loginCommand.ChangeCanExecute();
+                _loginCommand?.ChangeCanExecute();
             }
         }
 
         private async void LoginButtonClick()
         {
-            _model.Username = Username;
-            _model.Password = Password;
+            await _model.Initialise(Username, Password);
 
             _exitPage?.Invoke();
         }
