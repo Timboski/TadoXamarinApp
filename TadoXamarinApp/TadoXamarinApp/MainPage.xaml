@@ -31,6 +31,7 @@
             <Button Text="Living Room" Command="{Binding Zone1TestCommand}" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" />
             <Button Text="Set All Zones" Command="{Binding AllOffCommand}"  Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" />
             <Button Text="Cancel All Overrides" Command="{Binding CancelAllOffCommand}" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" />
+            <Button Text="Login" Command="{Binding ShowLoginPageCommand}" Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2" />
         </Grid>
     </StackLayout>
 

@@ -8,10 +8,12 @@ namespace TadoXamarinApp
     [DesignTimeVisible(false)]
     public partial class MainPage : ContentPage
     {
-        private MainPageViewModel _viewModel = new MainPageViewModel();
+        private readonly MainPageViewModel _viewModel;
 
         public MainPage()
         {
+            void ShowLoginPage() => Navigation.PushAsync(new LoginPage(_viewModel.Model));
+            _viewModel = new MainPageViewModel(ShowLoginPage);
             BindingContext = _viewModel;
             InitializeComponent();
         }
@@ -21,7 +23,6 @@ namespace TadoXamarinApp
             base.OnAppearing();
             if (IsLoggedIn()) return;
             await _viewModel.Model.Initialise();
-            await Navigation.PushAsync(new LoginPage(_viewModel.Model));
         }
 
         private bool IsLoggedIn()

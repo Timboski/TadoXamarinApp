@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -12,14 +13,15 @@ namespace TadoXamarinApp
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public MainPageViewModel()
+        public MainPageViewModel(Action showLoginPage)
         {
             TestClickCommand = new Command(TestButtonClick);
             Zone1TestCommand = new Command(SetOverride);
             Zone1CancelCommand = new Command(CancelOverride);
             AllOffCommand = new Command(AllOff);
             CancelAllOffCommand = new Command(CancelAllOverides);
-            
+            ShowLoginPageCommand = new Command(showLoginPage); 
+
             Model = new TadoController();
         }
 
@@ -28,6 +30,7 @@ namespace TadoXamarinApp
         public ICommand Zone1CancelCommand { get; }
         public ICommand AllOffCommand { get; }
         public ICommand CancelAllOffCommand { get; }
+        public ICommand ShowLoginPageCommand { get; }
 
         public TadoController Model { get; }
 
